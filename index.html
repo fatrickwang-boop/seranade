@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Serenade For You</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        script: ['"Dancing Script"', 'cursive'],
+                        sans: ['"Montserrat"', 'sans-serif'],
+                    },
+                    colors: {
+                        rose: {
+                            50: '#fff1f2',
+                            100: '#ffe4e6',
+                            200: '#fecdd3',
+                            300: '#fda4af',
+                            400: '#fb7185',
+                            500: '#f43f5e',
+                            600: '#e11d48',
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'spin-slow': 'spin 12s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0f0c29;
+            color: white;
+            overflow-x: hidden;
+        }
+        
+        /* The generated background */
+        .bg-dream {
+            background-image: linear-gradient(to bottom, rgba(15, 12, 41, 0.3), rgba(15, 12, 41, 0.9)), url('http://googleusercontent.com/generated_image_content/0');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .heart-particle {
+            position: fixed;
+            color: #fb7185;
+            font-size: 24px;
+            pointer-events: none;
+            animation: rise 4s linear forwards;
+            z-index: 50;
+        }
+
+        @keyframes rise {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+        }
+
+        /* Music Player visualizer bars */
+        .bar {
+            width: 4px;
+            background: white;
+            border-radius: 2px;
+            animation: equalize 1s ease-in-out infinite;
+        }
+        @keyframes equalize {
+            0%, 100% { height: 10px; }
+            50% { height: 24px; }
+        }
+        
+        /* Hidden YouTube Player */
+        #youtube-player {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+            visibility: hidden;
+        }
+    </style>
+</head>
+<body class="bg-dream min-h-screen font-sans">
+
+    <!-- YouTube Player Container (Hidden) -->
+    <div id="youtube-player"></div>
+
+    <!-- Floating Navigation / Player -->
+    <nav class="fixed top-0 w-full z-50 px-6 py-4 flex justify-between items-center transition-all duration-300" id="navbar">
+        <div class="font-script text-2xl text-rose-300 font-bold">For You</div>
+        <button onclick="toggleMusic()" class="glass-card px-4 py-2 rounded-full flex items-center gap-3 hover:bg-white/20 transition-all group cursor-pointer">
+            <div class="flex items-end gap-1 h-6" id="visualizer">
+                <div class="bar" style="animation-delay: 0.1s; animation-play-state: paused;"></div>
+                <div class="bar" style="animation-delay: 0.3s; animation-play-state: paused;"></div>
+                <div class="bar" style="animation-delay: 0.5s; animation-play-state: paused;"></div>
+            </div>
+            <span id="music-text" class="text-sm font-medium">Play "A Little Sweet"</span>
+            <i data-lucide="play" id="play-icon" class="w-4 h-4 fill-current"></i>
+        </button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex flex-col items-center justify-center text-center px-4 relative">
+        <div class="animate-float">
+            <div class="mb-4 text-rose-300 tracking-[0.2em] uppercase text-sm font-semibold">A Digital Serenade</div>
+            <h1 class="font-script text-7xl md:text-9xl mb-6 bg-clip-text text-transparent bg-gradient-to-r from-rose-200 via-white to-rose-200 drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]">
+                Hey Beautiful
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-200 max-w-2xl mx-auto font-light leading-relaxed">
+                Just wanted to create something as special as you are.<br>
+                Scroll down to see why you mean the world to me.
+            </p>
+        </div>
+        
+        <div class="absolute bottom-10 animate-bounce">
+            <i data-lucide="chevron-down" class="w-8 h-8 text-rose-300/80"></i>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="py-20 px-4 max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+            <h2 class="font-script text-5xl mb-4 text-rose-200">The Face of an Angel</h2>
+            <div class="h-1 w-24 bg-rose-500 mx-auto rounded-full"></div>
+        </div>
+
+        <!-- 
+           TIP: Replace the 'src' links below with your own photos.
+           You can upload photos to imgur.com and copy the "Direct Link" (ending in .jpg)
+        -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 p-4">
+            
+            <!-- Photo 1 -->
+            <div class="glass-card p-2 rounded-2xl transform rotate-[-3deg] hover:rotate-0 transition-all duration-500 hover:scale-105">
+                <div class="relative overflow-hidden rounded-xl aspect-[3/4]">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
+                        <p class="font-script text-2xl">That Smile...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Photo 2 (Center) -->
+            <div class="glass-card p-2 rounded-2xl transform md:-translate-y-12 z-10 hover:scale-105 transition-all duration-500">
+                <div class="relative overflow-hidden rounded-xl aspect-[3/4]">
+                    <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
+                        <p class="font-script text-2xl">Pure Magic</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Photo 3 -->
+            <div class="glass-card p-2 rounded-2xl transform rotate-[3deg] hover:rotate-0 transition-all duration-500 hover:scale-105">
+                <div class="relative overflow-hidden rounded-xl aspect-[3/4]">
+                    <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
+                        <p class="font-script text-2xl">My Favorite View</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Reasons Section -->
+    <section class="py-20 px-4 relative overflow-hidden">
+        <!-- Decoration -->
+        <div class="absolute top-0 left-0 w-64 h-64 bg-rose-500/20 rounded-full blur-[100px]"></div>
+        <div class="absolute bottom-0 right-0 w-96 h-96 bg-purple-500/20 rounded-full blur-[100px]"></div>
+
+        <div class="max-w-4xl mx-auto space-y-8">
+            <h2 class="font-script text-5xl text-center mb-12 text-rose-200">Why I Adore You</h2>
+
+            <div class="glass-card p-8 rounded-3xl flex items-center gap-6 hover:bg-white/10 transition-colors cursor-default">
+                <div class="bg-rose-500/20 p-4 rounded-full text-rose-300">
+                    <i data-lucide="laugh" class="w-8 h-8"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-1">Your Laughter</h3>
+                    <p class="text-rose-100/80">It's literally the best sound in the world. It lights up the entire room.</p>
+                </div>
+            </div>
+
+            <div class="glass-card p-8 rounded-3xl flex items-center gap-6 hover:bg-white/10 transition-colors cursor-default ml-0 md:ml-12">
+                <div class="bg-purple-500/20 p-4 rounded-full text-purple-300">
+                    <i data-lucide="star" class="w-8 h-8"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-1">Your Passion</h3>
+                    <p class="text-rose-100/80">The way your eyes sparkle when you talk about things you love inspires me.</p>
+                </div>
+            </div>
+
+            <div class="glass-card p-8 rounded-3xl flex items-center gap-6 hover:bg-white/10 transition-colors cursor-default">
+                <div class="bg-blue-500/20 p-4 rounded-full text-blue-300">
+                    <i data-lucide="heart-handshake" class="w-8 h-8"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-1">Your Kindness</h3>
+                    <p class="text-rose-100/80">You have the biggest heart of anyone I know. You make me want to be better.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Letter Section -->
+    <section class="py-20 px-4">
+        <div class="max-w-2xl mx-auto glass-card p-10 md:p-16 rounded-3xl relative">
+            <i data-lucide="quote" class="w-12 h-12 text-rose-500/30 absolute top-8 left-8"></i>
+            
+            <div class="text-center space-y-6">
+                <p class="leading-loose text-lg font-light text-gray-100">
+                    "I never believed in fairytales until I met you. Every day with you feels like a new page in the best book ever written. Thank you for being my rock, my joy, and my best friend."
+                </p>
+                <div class="pt-6">
+                    <p class="font-script text-3xl text-rose-300">Always yours,</p>
+                    <p class="font-bold mt-2 text-xl">[Your Name]</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Action -->
+    <section class="py-20 text-center relative z-10">
+        <button onclick="showerHearts()" class="group relative px-8 py-4 bg-rose-500 rounded-full font-bold tracking-wider shadow-[0_0_20px_rgba(244,63,94,0.5)] hover:shadow-[0_0_40px_rgba(244,63,94,0.8)] hover:scale-105 transition-all duration-300">
+            <span class="flex items-center gap-2">
+                <i data-lucide="heart" class="w-5 h-5 fill-current animate-pulse"></i>
+                SEND LOVE
+                <i data-lucide="heart" class="w-5 h-5 fill-current animate-pulse"></i>
+            </span>
+        </button>
+    </section>
+
+    <script>
+        // Init Icons
+        lucide.createIcons();
+
+        // --- YouTube Player Logic ---
+        let player;
+        let isPlaying = false;
+        const playBtn = document.getElementById('music-text');
+        const playIcon = document.getElementById('play-icon');
+        const bars = document.querySelectorAll('.bar');
+
+        // 1. Load the IFrame Player API code asynchronously
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        // 2. This function creates an <iframe> (and YouTube player) after the API code downloads
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtube-player', {
+                height: '0',
+                width: '0',
+                videoId: 'xfpzxixurx4', // The specific video ID
+                playerVars: {
+                    'playsinline': 1,
+                    'controls': 0,
+                    'disablekb': 1,
+                    'fs': 0,
+                    'loop': 1,
+                    'playlist': 'xfpzxixurx4' // Required for loop to work
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        // 3. The API will call this function when the video player is ready
+        function onPlayerReady(event) {
+            // Player is ready, but we wait for user interaction to play
+            console.log("Player ready");
+            player.setVolume(40); // Set nice background volume
+        }
+
+        // 4. Handle state changes
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.PLAYING) {
+                isPlaying = true;
+                updateUI(true);
+            } else if (event.data == YT.PlayerState.PAUSED || event.data == YT.PlayerState.ENDED) {
+                isPlaying = false;
+                updateUI(false);
+            }
+        }
+
+        // 5. Toggle Function
+        function toggleMusic() {
+            if (!player) return;
+
+            if (isPlaying) {
+                player.pauseVideo();
+            } else {
+                player.playVideo();
+                showerHearts(); // Show hearts on play
+            }
+        }
+
+        function updateUI(playing) {
+            if (playing) {
+                playBtn.innerText = "Pause Music";
+                playIcon.setAttribute('data-lucide', 'pause');
+                bars.forEach(b => b.style.animationPlayState = 'running');
+            } else {
+                playBtn.innerText = "Play \"A Little Sweet\"";
+                playIcon.setAttribute('data-lucide', 'play');
+                bars.forEach(b => b.style.animationPlayState = 'paused');
+            }
+            lucide.createIcons();
+        }
+
+        // --- Visual Effects ---
+        function showerHearts() {
+            const duration = 2000;
+            const end = Date.now() + duration;
+
+            const interval = setInterval(() => {
+                if (Date.now() > end) clearInterval(interval);
+                
+                const heart = document.createElement('div');
+                heart.classList.add('heart-particle');
+                heart.innerHTML = '❤';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.bottom = '-20px';
+                
+                const size = Math.random() * 20 + 20; 
+                heart.style.fontSize = size + 'px';
+                
+                const durationAnim = Math.random() * 2 + 3;
+                heart.style.animationDuration = durationAnim + 's';
+                
+                document.body.appendChild(heart);
+                
+                setTimeout(() => {
+                    heart.remove();
+                }, durationAnim * 1000);
+
+            }, 100);
+        }
+
+        // Scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-10');
+                }
+            });
+        });
+
+        document.querySelectorAll('section > div').forEach(el => {
+            el.classList.add('transition-all', 'duration-1000', 'opacity-0', 'translate-y-10');
+            observer.observe(el);
+        });
+
+    </script>
+</body>
+</html>
